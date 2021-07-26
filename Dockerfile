@@ -2,7 +2,7 @@
 
 # [Choice] Node.js version: 16, 14, 12
 ARG VARIANT="16-buster"
-FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-${VARIANT}
+FROM ghcr.io/shadel/tdlib-node-devcontainer:master
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -14,22 +14,9 @@ FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-${VARIANT}
 
 # [Optional] Uncomment if you want to install more global node packages
 # RUN su node -c "npm install -g <your-package-list -here>"
-VOLUME ["/srv"]
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y make git zlib1g-dev libssl-dev gperf php-cli cmake g++
-RUN git clone https://github.com/tdlib/td.git td && \
-    cd td && \
-    rm -rf build && \
-    mkdir build && \
-    cd build && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..  && \
-    cmake --build . --target prepare_cross_compiling  && \
-    cd ..  && \
-    php SplitSource.php && \
-    cd build && \
-    cmake --build . --target install && \
-    cd .. && \
-    php SplitSource.php --undo
-RUN ls -l /usr/local
+VOLUME ["/root"]
+
+RUN apt-get -y update
+RUN apt-get -y dist-upgrade
+RUN apt-get install -y ffmpeg
