@@ -1,3 +1,3 @@
-# tdlib-node-devcontainer
+# devcontainer-node-ts-tdlib-ffmpeg
 
-ghcr.io/shadel/tdlib-node-devcontainer
+ghcr.io/shadel/devcontainer-node-ts-tdlib-ffmpeg:master
